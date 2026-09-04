@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Task Management
+# Specification Quality Checklist: Team Task Management
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-09-04

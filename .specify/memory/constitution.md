@@ -1,11 +1,12 @@
 <!--
 Sync Impact Report
-- Version change: unversioned template -> 1.0.0
-- Modified principles: template placeholders -> I. Simplicity First; II. Required Stack;
-	III. Local-First Persistence; IV. Authentication Boundary; V. Testable Delivery
-- Added sections: Technology Constraints; Development Workflow
+- Version change: 3.0.0 -> 4.0.0
+- Modified principles: III. Local-First Persistence (SQLite -> MongoDB)
+- Added sections: none
 - Removed sections: none
-- Follow-up TODOs: Confirm the original ratification date.
+- Follow-up TODOs: Confirm the original ratification date; specify MongoDB deployment and
+    connection configuration; specify admin credential values, credential storage, and task
+    visibility rules before implementation.
 -->
 
 # Small Todo Constitution
@@ -18,19 +19,23 @@ add speculative abstractions, infrastructure, or features without a documented r
 clear maintenance value. This keeps the application understandable and reduces operational cost.
 
 ### II. Required Stack
-The backend MUST use Python, the frontend MUST use React, and browser-to-server communication
-MUST use an explicit, documented API contract. A change to these technologies requires a
-constitution amendment so that architecture remains predictable.
+The backend MUST use Java with Spring Boot, the frontend MUST use Angular, and browser-to-server
+communication MUST use an explicit, documented REST API contract. A change to these technologies
+requires a constitution amendment so that architecture remains predictable.
 
 ### III. Local-First Persistence
-Application data MUST be stored in SQLite for local use. Data access MUST be isolated behind a
-backend persistence boundary, and schema changes MUST be reproducible from a documented migration
-or initialisation path. This provides reliable local storage without unnecessary infrastructure.
+Application data MUST be stored in MongoDB for local use. Data access MUST be isolated behind a
+backend persistence boundary, and collection or index changes MUST be reproducible from a
+documented migration or initialisation path. This provides flexible local persistence while
+keeping database access replaceable and testable.
 
 ### IV. Authentication Boundary
-The initial product MUST NOT include login, authentication, or account-management functionality.
-Endpoints MUST NOT imply user identity or claim account-level isolation. Any future identity
-requirement MUST be specified and reviewed as a separate governance change before implementation.
+The product MUST provide admin authentication through the same login page used by the
+application. Task access MUST be limited according to the authenticated admin identity once
+task visibility rules are defined in the feature specification. Credential values and secrets
+MUST NOT be committed to the repository or written to normal application logs. Additional roles,
+account-management flows, and identity-based features require explicit specification before
+implementation.
 
 ### V. Testable Delivery
 New behaviour MUST have focused automated tests at the layer where it is decided, including API
@@ -40,9 +45,9 @@ behaviour. Every change MUST pass the repository's available checks before revie
 ## Technology Constraints
 
 The system MUST run locally without a hosted service dependency for its core workflow. The
-frontend MUST remain a React application, the backend MUST remain Python, and SQLite MUST be the
-default local database. Secrets, personal data, and credentials MUST NOT be committed to the
-repository or written to normal application logs.
+frontend MUST remain an Angular application, the backend MUST remain a Java Spring Boot
+application, and MongoDB MUST be the default database. Secrets, personal data, and credentials
+MUST NOT be committed to the repository or written to normal application logs.
 
 ## Development Workflow
 
@@ -61,4 +66,4 @@ principles or materially expanded requirements; PATCH increments are required fo
 and non-semantic corrections. Reviews MUST verify compliance, and unresolved violations MUST be
 recorded before approval.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirm original adoption date | **Last Amended**: 2026-09-04
+**Version**: 4.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirm original adoption date | **Last Amended**: 2026-09-04
