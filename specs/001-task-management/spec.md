@@ -8,6 +8,12 @@
 
 **Input**: User description: "The To-Do application is a simple task management system that allows users to add, view, complete, and delete tasks. Users can enter a task title and add it to their list, view all their tasks and their completion status, mark tasks as completed, and delete tasks when they are no longer needed. The application keeps the interface simple and focuses only on the basic functionality required for managing everyday tasks. Every new task user creates should come on top of all the existing tasks."
 
+## Clarifications
+
+### Session 2026-09-04
+
+- Q: Where should tasks be persisted so they survive a return visit on the same local installation? → A: A local SQLite database behind a backend persistence boundary, per the project constitution's Local-First Persistence principle (accessed via a Python backend API, not directly by the frontend).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Add and View Tasks (Priority: P1)
@@ -76,7 +82,7 @@ As a user, I want to delete tasks I no longer need so that my list stays relevan
 - **FR-008**: Users MUST be able to mark an incomplete task as completed.
 - **FR-009**: Users MUST be able to delete an existing task.
 - **FR-010**: Deleting a task MUST NOT change the title, completion status, or relative order of other tasks.
-- **FR-011**: The application MUST preserve tasks and their completion statuses when the user returns to the application on the same local installation.
+- **FR-011**: The application MUST preserve tasks and their completion statuses when the user returns to the application on the same local installation, using a local SQLite database accessed through a backend API.
 - **FR-012**: The application MUST provide clear feedback for invalid input and failed task actions.
 - **FR-013**: The application MUST keep the first release limited to adding, viewing, completing, and deleting tasks; editing, grouping, searching, reminders, due dates, sharing, and notifications are out of scope.
 
