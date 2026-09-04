@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+:root{
+  --bg: oklch(98% 0.004 275);
+  --surface: oklch(100% 0 0);
+  --border: oklch(91% 0.012 275);
+  --text: oklch(22% 0.02 275);
+  --text-soft: oklch(50% 0.016 275);
+  --text-faint: oklch(64% 0.012 275);
+  --accent: oklch(55% 0.19 290);
+  --accent-hover: oklch(47% 0.19 290);
+  --accent-soft: oklch(94% 0.035 290);
+  --todo: oklch(55% 0.01 275);
+  --todo-soft: oklch(95% 0.006 275);
+  --progress: oklch(62% 0.15 65);
+  --progress-soft: oklch(95% 0.045 65);
+  --done: oklch(60% 0.14 150);
+  --done-soft: oklch(95% 0.045 150);
+  --blocked: oklch(56% 0.2 25);
+  --blocked-soft: oklch(95% 0.05 25);
+  --marcus: oklch(60% 0.11 200);
+}
+body{ margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans','Segoe UI',sans-serif; }
+h1,h2,h3,.heading{ font-family:'Space Grotesk','Segoe UI',sans-serif; letter-spacing:-0.01em; margin:0; }
+a{ color:var(--accent); text-decoration:none; } a:hover{ color:var(--accent-hover); }
+.back:hover{ color:var(--text); }
+.seg{ cursor:pointer; }
+.btn-primary{ transition:background .15s ease; } .btn-primary:hover{ background:var(--accent-hover); }
+.btn-ghost{ transition:background .15s ease,border-color .15s ease; } .btn-ghost:hover{ border-color:oklch(75% 0.02 275); }
+</style>
+</helmet>
+
+<div style="width:1440px;height:900px;background:var(--bg);box-sizing:border-box;display:flex;justify-content:center;overflow:hidden;">
+  <div style="width:720px;padding:44px 0;display:flex;flex-direction:column;gap:28px;">
+
+    <a href="#" class="back" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--text-soft);width:fit-content;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to board
+    </a>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;box-sizing:border-box;display:flex;flex-direction:column;gap:28px;">
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="display:inline-flex;align-items:center;gap:5px;background:var(--blocked-soft);color:var(--blocked);padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4a1 1 0 0 1 1-1h13.4a.6.6 0 0 1 .5.9L16 9l2.9 5.1a.6.6 0 0 1-.5.9H5"/></svg>
+            Blocked
+          </div>
+          <span style="font-size:12px;color:var(--text-faint);">Created 3 days ago</span>
+        </div>
+        <h1 style="font-size:25px;font-weight:700;line-height:1.3;">Fix flaky checkout test</h1>
+      </div>
+
+      <p style="font-size:14.5px;line-height:1.7;color:var(--text-soft);margin:0;">
+        The checkout suite intermittently times out on CI when the payment mock responds slowly.
+        It has failed three of the last five runs. Needs a longer timeout or a retry around the
+        mock response before the suite can be trusted again.
+      </p>
+
+      <div style="height:1px;background:var(--border);"></div>
+
+      <div style="display:flex;align-items:center;gap:28px;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:11.5px;font-weight:600;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;">Assignee</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:26px;height:26px;border-radius:50%;background:var(--marcus);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;">M</div>
+            <span style="font-size:14px;font-weight:600;">Marcus</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-size:11.5px;font-weight:600;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;">Status</span>
+        <div style="display:inline-flex;background:var(--todo-soft);border-radius:10px;padding:4px;width:fit-content;gap:2px;">
+          <div class="seg" style="padding:8px 18px;border-radius:8px;background:var(--surface);color:var(--text);font-size:13.5px;font-weight:600;box-shadow:0 1px 2px oklch(20% 0.02 275 / 0.08);">Todo</div>
+          <div class="seg" style="padding:8px 18px;border-radius:8px;color:var(--text-soft);font-size:13.5px;font-weight:600;">In progress</div>
+          <div class="seg" style="padding:8px 18px;border-radius:8px;color:var(--text-soft);font-size:13.5px;font-weight:600;">Done</div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:var(--border);"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:44px;height:24px;border-radius:999px;background:var(--blocked);position:relative;flex:0 0 auto;">
+            <div style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;right:3px;"></div>
+          </div>
+          <span style="font-size:14px;font-weight:600;">Blocked</span>
+        </div>
+        <div class="btn-primary" style="display:flex;align-items:center;gap:7px;background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          Mark completed
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>
