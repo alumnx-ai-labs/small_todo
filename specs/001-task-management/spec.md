@@ -123,7 +123,7 @@ required fields.
 3. **Given** the admin enters a meeting transcript naming team members and work,
 	 **When** the admin selects create tasks, **Then** the application produces structured JSON task
 	 data using the same names as the transcript and immediately saves the resulting assignments.
-4. **Given** the admin has a transcript in `.txt` or `.docx` format,
+4. **Given** the admin has a transcript in `.txt`, `.docx`, or `.pdf` format,
 	 **When** the admin uploads the file, **Then** the application extracts its text and appends it
 	 to any existing transcript text before making the combined text available for task creation.
 5. **Given** the transcript names a person not previously used in the application,
@@ -144,7 +144,7 @@ required fields.
 - A task description MAY be empty for a self-created task, but the title MUST be present.
 - A transcript that produces invalid, incomplete, or unassigned task data MUST not create partial
 	tasks and MUST show an actionable error.
-- Transcript uploads MUST accept `.txt` and `.docx` files and MUST reject other file formats with
+- Transcript uploads MUST accept `.txt`, `.docx`, and `.pdf` files and MUST reject other file formats with
 	a clear validation message.
 - An empty or unreadable transcript upload MUST not create tasks and MUST show an actionable error.
 - A task action that fails MUST leave the existing task, status, assignee, and order unchanged.
@@ -182,11 +182,12 @@ required fields.
 - **FR-018**: The application MUST preserve task titles, descriptions, assignees, statuses,
   blocked states, and newest-first order between visits.
 - **FR-019**: The admin MUST be able to paste a meeting transcript and select create tasks.
-- **FR-020**: The admin MUST be able to upload a meeting transcript in `.txt` or `.docx` format.
+- **FR-020**: The admin MUST be able to upload a meeting transcript in `.txt`, `.docx`, or `.pdf`
+	format.
 - **FR-021**: The application MUST extract text from a valid transcript upload and make it
 	available for task creation, appending it to any existing transcript text.
 - **FR-022**: The application MUST reject transcript uploads in unsupported formats, including
-	files that are not `.txt` or `.docx`, with clear feedback.
+	files that are not `.txt`, `.docx`, or `.pdf`, with clear feedback.
 - **FR-023**: Transcript processing MUST produce task data as JSON containing the task title,
 	description, assignee name, status, and blocked state for each created task.
 - **FR-024**: Successfully processed transcript-generated tasks MUST be saved immediately without
@@ -205,7 +206,7 @@ required fields.
 	name `admin` identifies the administrator.
 - **Task**: A work item with a title, optional description, assignee name, status, blocked state,
 	and creation order. It has no deadline or time requirement.
-- **Meeting Transcript**: Text pasted by the admin or extracted from an uploaded `.txt` or `.docx`
+- **Meeting Transcript**: Text pasted by the admin or extracted from an uploaded `.txt`, `.docx`, or `.pdf`
 	file as the source for creating assigned tasks.
 - **Generated Task Data**: Structured task information produced from a transcript before tasks are
 	created.
@@ -223,7 +224,7 @@ required fields.
 - **SC-004**: At least 95% of valid self-created tasks appear in the creator's todo column within
 	10 seconds.
 - **SC-005**: At least 90% of valid transcripts produce task data with the mentioned assignee
-	names preserved exactly, whether pasted or uploaded as `.txt` or `.docx`, or provide a clear
+	names preserved exactly, whether pasted or uploaded as `.txt`, `.docx`, or `.pdf`, or provide a clear
 	error without creating partial tasks.
 - **SC-006**: In usability checks, at least 90% of participants can log in, open a task, and
 	change its status without assistance.
@@ -238,7 +239,8 @@ required fields.
 - “Last come first” means newest tasks appear first, and status changes do not reset creation order.
 - The admin's transcript task creation uses an AI capability but does not define a specific vendor
 	or model in this specification.
-- Transcript uploads support plain-text `.txt` files and `.docx` word-processing files; other
+- Transcript uploads support plain-text `.txt` files, `.docx` word-processing files, and `.pdf`
+	files; other
 	formats are outside the first release.
 - Successfully generated transcript tasks are saved immediately without admin confirmation.
 - Task data is available when users return to the application.
