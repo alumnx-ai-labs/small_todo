@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+:root{
+  --bg: oklch(98% 0.004 275);
+  --surface: oklch(100% 0 0);
+  --border: oklch(91% 0.012 275);
+  --text: oklch(22% 0.02 275);
+  --text-soft: oklch(50% 0.016 275);
+  --text-faint: oklch(64% 0.012 275);
+  --accent: oklch(55% 0.19 290);
+  --accent-hover: oklch(47% 0.19 290);
+  --accent-soft: oklch(94% 0.035 290);
+  --todo: oklch(55% 0.01 275);
+  --progress: oklch(62% 0.15 65);
+  --done: oklch(60% 0.14 150);
+  --blocked: oklch(56% 0.2 25);
+  --blocked-soft: oklch(95% 0.05 25);
+  --priya: oklch(55% 0.19 290);
+  --marcus: oklch(60% 0.11 200);
+  --aisha: oklch(62% 0.15 350);
+  --devon: oklch(66% 0.13 75);
+  --admin: oklch(32% 0.02 275);
+}
+body{ margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans','Segoe UI',sans-serif; }
+h1,h2,h3,.heading{ font-family:'Space Grotesk','Segoe UI',sans-serif; letter-spacing:-0.01em; margin:0; }
+a{ color:var(--accent); text-decoration:none; } a:hover{ color:var(--accent-hover); }
+.card{ transition:border-color .15s ease, box-shadow .15s ease; }
+.card:hover{ border-color:oklch(80% 0.03 290); box-shadow:0 1px 2px oklch(20% 0.02 275 / 0.04), 0 4px 12px oklch(20% 0.02 275 / 0.06); }
+.nav-item{ transition:background .15s ease, color .15s ease; } .nav-item:hover{ background:var(--accent-soft); }
+</style>
+</helmet>
+
+<div style="width:1440px;height:900px;background:var(--bg);display:flex;box-sizing:border-box;overflow:hidden;">
+
+  <div style="width:232px;flex:0 0 232px;background:var(--surface);border-right:1px solid var(--border);box-sizing:border-box;padding:24px 18px;display:flex;flex-direction:column;height:100%;">
+    <div style="display:flex;flex-direction:column;gap:30px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 6px;">
+        <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
+          <rect x="0" y="7" width="14" height="14" rx="4" fill="var(--todo)" opacity="0.5"/>
+          <rect x="7" y="7" width="14" height="14" rx="4" fill="var(--progress)" opacity="0.75"/>
+          <rect x="14" y="7" width="14" height="14" rx="4" fill="var(--accent)"/>
+        </svg>
+        <span class="heading" style="font-size:17px;font-weight:700;">Loopwork</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <div class="nav-item" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+          All tasks
+        </div>
+        <div class="nav-item" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--text-soft);font-weight:600;font-size:14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 13h6M9 17h4"/></svg>
+          Create from transcript
+        </div>
+      </div>
+    </div>
+    <div style="flex-grow:1;"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px solid var(--border);">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--admin);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto;">A</div>
+      <div style="display:flex;flex-direction:column;min-width:0;">
+        <span style="font-size:13px;font-weight:600;color:var(--text);">admin</span>
+        <a href="#" style="font-size:12px;">Sign out</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;padding:36px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:26px;min-width:0;">
+
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <h1 style="font-size:22px;font-weight:700;">All tasks</h1>
+      <span style="font-size:13px;color:var(--text-soft);">Every task across the team · 8 total</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;flex-grow:1;min-height:0;">
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--todo);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">Todo</span>
+          <span style="font-size:12px;color:var(--text-faint);">3</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Fix flaky checkout test</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--marcus);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">M</div>
+                <span style="font-size:12.5px;color:var(--text-soft);">Marcus</span>
+              </div>
+              <div style="display:inline-flex;align-items:center;gap:4px;background:var(--blocked-soft);color:var(--blocked);padding:3px 7px;border-radius:999px;font-size:11px;font-weight:600;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4a1 1 0 0 1 1-1h13.4a.6.6 0 0 1 .5.9L16 9l2.9 5.1a.6.6 0 0 1-.5.9H5"/></svg>
+                Blocked
+              </div>
+            </div>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Draft onboarding checklist for new hires</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--priya);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">P</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Priya</span>
+            </div>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Write release notes for v2.4</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--aisha);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">A</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Aisha</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--progress);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">In progress</span>
+          <span style="font-size:12px;color:var(--text-faint);">3</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Migrate billing service to new queue</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--marcus);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">M</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Marcus</span>
+            </div>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Design empty states for reports tab</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--priya);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">P</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Priya</span>
+            </div>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Audit onboarding email templates</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--devon);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">D</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Devon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--done);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">Done</span>
+          <span style="font-size:12px;color:var(--text-faint);">2</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;opacity:0.75;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;text-decoration:line-through;text-decoration-color:var(--text-faint);">Ship dark mode toggle</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--aisha);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">A</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Aisha</span>
+            </div>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;cursor:pointer;opacity:0.75;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;text-decoration:line-through;text-decoration-color:var(--text-faint);">Update API docs for /tasks endpoint</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--devon);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;">D</div>
+              <span style="font-size:12.5px;color:var(--text-soft);">Devon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

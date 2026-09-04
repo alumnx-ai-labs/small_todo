@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+:root{
+  --bg: oklch(98% 0.004 275);
+  --surface: oklch(100% 0 0);
+  --border: oklch(91% 0.012 275);
+  --text: oklch(22% 0.02 275);
+  --text-soft: oklch(50% 0.016 275);
+  --text-faint: oklch(64% 0.012 275);
+  --accent: oklch(55% 0.19 290);
+  --accent-hover: oklch(47% 0.19 290);
+  --accent-soft: oklch(94% 0.035 290);
+  --todo: oklch(55% 0.01 275);
+  --todo-soft: oklch(95% 0.006 275);
+  --progress: oklch(62% 0.15 65);
+  --progress-soft: oklch(95% 0.045 65);
+  --done: oklch(60% 0.14 150);
+  --done-soft: oklch(95% 0.045 150);
+  --blocked: oklch(56% 0.2 25);
+  --blocked-soft: oklch(95% 0.05 25);
+}
+body{ margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans','Segoe UI',sans-serif; }
+h1,h2,h3,.heading{ font-family:'Space Grotesk','Segoe UI',sans-serif; letter-spacing:-0.01em; margin:0; }
+a{ color:var(--accent); text-decoration:none; } a:hover{ color:var(--accent-hover); }
+.card{ transition:border-color .15s ease, box-shadow .15s ease; }
+.card:hover{ border-color:oklch(80% 0.03 290); box-shadow:0 1px 2px oklch(20% 0.02 275 / 0.04), 0 4px 12px oklch(20% 0.02 275 / 0.06); }
+.btn-primary{ transition:background .15s ease; }
+.btn-primary:hover{ background:var(--accent-hover); }
+.nav-item{ transition:background .15s ease, color .15s ease; }
+.nav-item:hover{ background:var(--accent-soft); }
+</style>
+</helmet>
+
+<div style="width:1440px;height:900px;background:var(--bg);display:flex;box-sizing:border-box;overflow:hidden;">
+
+  <div style="width:232px;flex:0 0 232px;background:var(--surface);border-right:1px solid var(--border);box-sizing:border-box;padding:24px 18px;display:flex;flex-direction:column;height:100%;">
+    <div style="display:flex;flex-direction:column;gap:30px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 6px;">
+        <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
+          <rect x="0" y="7" width="14" height="14" rx="4" fill="var(--todo)" opacity="0.5"/>
+          <rect x="7" y="7" width="14" height="14" rx="4" fill="var(--progress)" opacity="0.75"/>
+          <rect x="14" y="7" width="14" height="14" rx="4" fill="var(--accent)"/>
+        </svg>
+        <span class="heading" style="font-size:17px;font-weight:700;">Loopwork</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <div class="nav-item" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+          Board
+        </div>
+      </div>
+    </div>
+    <div style="flex-grow:1;"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px solid var(--border);">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto;">P</div>
+      <div style="display:flex;flex-direction:column;min-width:0;">
+        <span style="font-size:13px;font-weight:600;color:var(--text);">Priya</span>
+        <a href="#" style="font-size:12px;">Sign out</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;padding:36px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:26px;min-width:0;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <h1 style="font-size:22px;font-weight:700;">Your board</h1>
+        <span style="font-size:13px;color:var(--text-soft);">Tasks assigned to Priya · 5 total</span>
+      </div>
+      <div class="btn-primary" style="display:flex;align-items:center;gap:6px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        New task
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;flex-grow:1;min-height:0;">
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--todo);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">Todo</span>
+          <span style="font-size:12px;color:var(--text-faint);">2</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Draft onboarding checklist for new hires</span>
+            <span style="font-size:12px;color:var(--text-faint);">Created today</span>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Prep demo script for Friday review</span>
+            <span style="font-size:12px;color:var(--text-faint);">Created yesterday</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--progress);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">In progress</span>
+          <span style="font-size:12px;color:var(--text-faint);">2</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Design empty states for reports tab</span>
+            <span style="font-size:12px;color:var(--text-faint);">Created 2 days ago</span>
+          </div>
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;">Coordinate vendor migration</span>
+            <div style="display:inline-flex;align-items:center;gap:5px;background:var(--blocked-soft);color:var(--blocked);padding:4px 8px;border-radius:999px;font-size:11.5px;font-weight:600;width:fit-content;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4a1 1 0 0 1 1-1h13.4a.6.6 0 0 1 .5.9L16 9l2.9 5.1a.6.6 0 0 1-.5.9H5"/></svg>
+              Blocked
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--done);"></div>
+          <span style="font-size:13px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.04em;">Done</span>
+          <span style="font-size:12px;color:var(--text-faint);">1</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;opacity:0.75;">
+            <span style="font-size:14.5px;font-weight:600;line-height:1.4;text-decoration:line-through;text-decoration-color:var(--text-faint);">Review Q3 roadmap deck</span>
+            <span style="font-size:12px;color:var(--text-faint);">Completed Tuesday</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

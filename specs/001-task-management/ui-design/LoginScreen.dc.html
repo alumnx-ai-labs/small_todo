@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+:root{
+  --bg: oklch(98% 0.004 275);
+  --surface: oklch(100% 0 0);
+  --border: oklch(91% 0.012 275);
+  --text: oklch(22% 0.02 275);
+  --text-soft: oklch(50% 0.016 275);
+  --text-faint: oklch(64% 0.012 275);
+  --accent: oklch(55% 0.19 290);
+  --accent-hover: oklch(47% 0.19 290);
+  --accent-soft: oklch(94% 0.035 290);
+  --todo: oklch(55% 0.01 275);
+  --progress: oklch(62% 0.15 65);
+  --done: oklch(60% 0.14 150);
+}
+body{ margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans','Segoe UI',sans-serif; }
+h1,h2,h3,.heading{ font-family:'Space Grotesk','Segoe UI',sans-serif; letter-spacing:-0.01em; margin:0; }
+a{ color:var(--accent); } a:hover{ color:var(--accent-hover); }
+.btn-primary{ transition:background .15s ease; } .btn-primary:hover{ background:var(--accent-hover); }
+</style>
+</helmet>
+
+<div style="width:1440px;height:900px;box-sizing:border-box;position:relative;overflow:hidden;background:
+  radial-gradient(560px 420px at 14% 12%, oklch(94% 0.05 290 / 0.6), transparent),
+  radial-gradient(620px 480px at 88% 84%, oklch(95% 0.05 65 / 0.5), transparent),
+  var(--bg);display:flex;align-items:center;justify-content:center;">
+
+  <div style="position:absolute;top:40px;left:48px;display:flex;align-items:center;gap:10px;">
+    <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
+      <rect x="0" y="7" width="14" height="14" rx="4" fill="var(--todo)" opacity="0.5"/>
+      <rect x="7" y="7" width="14" height="14" rx="4" fill="var(--progress)" opacity="0.75"/>
+      <rect x="14" y="7" width="14" height="14" rx="4" fill="var(--accent)"/>
+    </svg>
+    <span class="heading" style="font-size:17px;font-weight:700;">Loopwork</span>
+  </div>
+
+  <div style="width:400px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:36px 32px;box-sizing:border-box;box-shadow:0 1px 2px oklch(20% 0.02 275 / 0.04), 0 20px 40px oklch(20% 0.02 275 / 0.08);display:flex;flex-direction:column;gap:24px;">
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <h1 style="font-size:22px;font-weight:700;">Sign in to your board</h1>
+      <span style="font-size:13.5px;color:var(--text-soft);line-height:1.5;">Enter the name your tasks are assigned under. No account or password needed.</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <label style="font-size:13px;font-weight:600;color:var(--text);">Your name</label>
+      <div style="border:1.5px solid var(--accent);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--text);box-shadow:0 0 0 3px var(--accent-soft);">Priya</div>
+      <span style="font-size:12px;color:var(--text-faint);line-height:1.5;">Case-sensitive, letters only. You'll need at least one task already assigned to this exact name — the admin can see every task.</span>
+    </div>
+
+    <div class="btn-primary" style="background:var(--accent);color:#fff;text-align:center;padding:12px;border-radius:10px;font-size:14.5px;font-weight:600;cursor:pointer;">Continue</div>
+
+    <div style="height:1px;background:var(--border);"></div>
+
+    <span style="font-size:12px;color:var(--text-faint);text-align:center;">Logging in as <strong style="color:var(--text-soft);">admin</strong> opens the admin view for every task on the board.</span>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>
