@@ -12,6 +12,21 @@ tasks, manage task status across todo, in-progress, and done, and create tasks f
 The admin logs in with the name admin, sees all tasks, and creates assigned tasks from meeting
 transcripts through structured AI-generated JSON."
 
+## Clarifications
+
+### Session 2026-09-04
+
+- Q: Should a team member be allowed to log in with any alphabetic name, even before any task is
+	assigned to that name? → A: Allow login only for names already assigned to at least one task.
+	The exact name `admin` remains the administrator exception.
+- Q: When a team member marks a task as blocked, should the task keep its current column status
+  and show a separate blocked indicator? → A: Keep the task in its current column and show a
+  separate blocked indicator.
+- Q: Should the description field be optional when a team member creates a personal task? → A:
+	Description is optional; the title is required.
+- Q: Should the admin review and confirm the AI-generated tasks before they are saved? → A: Save
+  generated tasks immediately after successful processing, without an admin confirmation step.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Team Member Login and Task Board (Priority: P1)
@@ -26,12 +41,15 @@ their own assigned tasks, displayed in the three required status columns.
 
 **Acceptance Scenarios**:
 
-1. **Given** a person enters a name containing only alphabetic characters, **When** they log in,
-	 **Then** the application accepts the name exactly as entered, including its case.
+1. **Given** a person enters a case-sensitive alphabetic name assigned to at least one task,
+	**When** they log in, **Then** the application accepts the name exactly as entered, including
+	its case.
 2. **Given** tasks assigned to multiple people exist, **When** a team member logs in,
 	 **Then** only tasks assigned to that exact case-sensitive name are shown.
-3. **Given** a team member has no assigned tasks, **When** they open their board,
-	 **Then** the board shows empty todo, in-progress, and done columns.
+3. **Given** a person enters an alphabetic name with no assigned tasks, **When** they attempt to
+	log in, **Then** the application rejects the login and explains that an assignment is required.
+4. **Given** the login name is exactly `admin`, **When** the user logs in, **Then** the application
+	opens the admin board regardless of whether any task exists.
 
 ---
 
@@ -72,8 +90,8 @@ to the logged-in person and appears first in their todo column.
 
 **Acceptance Scenarios**:
 
-1. **Given** a team member is logged in, **When** they submit a valid task title and description,
-	 **Then** the task is assigned to that member and starts in todo.
+1. **Given** a team member is logged in, **When** they submit a valid task title with or without a
+   description, **Then** the task is assigned to that member and starts in todo.
 2. **Given** existing tasks are visible, **When** a team member creates a task,
 	 **Then** the new task appears before older tasks in the todo column.
 3. **Given** the title is empty or contains only whitespace, **When** the form is submitted,
@@ -101,7 +119,7 @@ required fields.
 	 **Then** another screen shows the task description, assignee, current status, and blocked state.
 3. **Given** the admin enters a meeting transcript naming team members and work,
 	 **When** the admin selects create tasks, **Then** the application produces structured JSON task
-	 data using the same names as the transcript and creates the resulting assignments.
+	 data using the same names as the transcript and immediately saves the resulting assignments.
 4. **Given** the transcript names a person not previously used in the application,
 	 **When** tasks are created for that person, **Then** that exact name becomes a valid login name
 	 without a separate registration step.
@@ -109,6 +127,8 @@ required fields.
 ### Edge Cases
 
 - A login name containing anything other than alphabetic characters MUST be rejected.
+- A team-member login name with no assigned task MUST be rejected; the exact name `admin` is
+	accepted as the administrator exception.
 - Login names MUST be case-sensitive; names differing only by case MUST be treated as different
 	identities.
 - The name `admin` MUST enter the admin view, while `Admin` MUST be treated as a different
@@ -128,34 +148,39 @@ required fields.
 - **FR-001**: The application MUST provide one login page for team members and the admin.
 - **FR-002**: The login form MUST accept a name only; no password or registration flow is allowed.
 - **FR-003**: A login name MUST contain alphabetic characters only and MUST preserve case exactly.
-- **FR-004**: A successful team-member login MUST show only tasks assigned to that exact name.
-- **FR-005**: The exact name `admin` MUST open the admin view and no other name may open it.
-- **FR-006**: The team-member board MUST display tasks in exactly three columns: todo,
+- **FR-004**: A team-member login MUST be accepted only when at least one task is assigned to
+  that exact case-sensitive name.
+- **FR-005**: A successful team-member login MUST show only tasks assigned to that exact name.
+- **FR-006**: The exact name `admin` MUST open the admin view and no other name may open it,
+  regardless of task assignments.
+- **FR-007**: The team-member board MUST display tasks in exactly three columns: todo,
 	in-progress, and done.
-- **FR-007**: The admin board MUST display all tasks in the same three columns and MUST show each
+- **FR-008**: The admin board MUST display all tasks in the same three columns and MUST show each
 	task's assignee name on its card.
-- **FR-008**: Every task card MUST expose its title, status, and blocked state when blocked.
-- **FR-009**: Selecting a task MUST open a separate detail screen showing its description,
+- **FR-009**: Every task card MUST expose its title, status, and blocked state when blocked.
+- **FR-010**: Selecting a task MUST open a separate detail screen showing its description,
 	assignee, current status, and controls to mark it completed or blocked.
-- **FR-010**: Team members MUST be able to create tasks for themselves through an add-task form.
-- **FR-011**: A self-created task MUST be assigned to the logged-in team member and start in todo.
-- **FR-012**: The application MUST reject empty or whitespace-only task titles and MUST trim
+- **FR-011**: Team members MUST be able to create tasks for themselves through an add-task form.
+- **FR-012**: A self-created task MUST be assigned to the logged-in team member and start in todo.
+- **FR-013**: The application MUST reject empty or whitespace-only task titles and MUST trim
 	accepted titles before storing them.
-- **FR-013**: Newly created tasks MUST appear before older tasks in their board column.
-- **FR-014**: Team members MUST be able to move tasks between todo and in-progress, and between
+- **FR-014**: Newly created tasks MUST appear before older tasks in their board column.
+- **FR-015**: Team members MUST be able to move tasks between todo and in-progress, and between
 	in-progress and done, in both directions.
-- **FR-015**: The blocked control MUST set or clear a blocked state without adding a fourth column
+- **FR-016**: The blocked control MUST set or clear a blocked state without adding a fourth column
 	or changing the task's current status.
-- **FR-016**: The application MUST provide clear feedback for invalid input and failed task actions.
-- **FR-017**: The application MUST preserve task titles, descriptions, assignees, statuses,
+- **FR-017**: The application MUST provide clear feedback for invalid input and failed task actions.
+- **FR-018**: The application MUST preserve task titles, descriptions, assignees, statuses,
   blocked states, and newest-first order between visits.
-- **FR-018**: The admin MUST be able to paste a meeting transcript and select create tasks.
-- **FR-019**: Transcript processing MUST produce task data as JSON containing the task title,
+- **FR-019**: The admin MUST be able to paste a meeting transcript and select create tasks.
+- **FR-020**: Transcript processing MUST produce task data as JSON containing the task title,
 	description, assignee name, status, and blocked state for each created task.
-- **FR-020**: Transcript-derived assignee names MUST match the names in the transcript exactly.
-- **FR-021**: A new assignee name from a created task MUST become a valid login name automatically,
+- **FR-021**: Successfully processed transcript-generated tasks MUST be saved immediately without
+  requiring an admin confirmation step.
+- **FR-022**: Transcript-derived assignee names MUST match the names in the transcript exactly.
+- **FR-023**: A new assignee name from a created task MUST become a valid login name automatically,
 	without registration.
-- **FR-022**: The first release MUST exclude passwords, registration, deadlines, time tracking,
+- **FR-024**: The first release MUST exclude passwords, registration, deadlines, time tracking,
 	task editing, search, reminders, notifications, and features not specified here.
 
 ### Key Entities *(include if feature involves data)*
@@ -189,9 +214,11 @@ required fields.
 
 - The exact name `admin` is the only administrator identity; no password is used in this demo.
 - Team-member names are the complete identity record and are case-sensitive.
+- Team-member login is available only after at least one task is assigned to the exact name.
 - A self-created task is assigned to its creator.
 - Blocked is a boolean task state shown alongside one of the three required statuses.
 - “Last come first” means newest tasks appear first, and status changes do not reset creation order.
 - The admin's transcript task creation uses an AI capability but does not define a specific vendor
 	or model in this specification.
+- Successfully generated transcript tasks are saved immediately without admin confirmation.
 - Task data is available when users return to the application.
