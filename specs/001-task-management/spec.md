@@ -26,6 +26,9 @@ transcripts through structured AI-generated JSON."
 	Description is optional; the title is required.
 - Q: Should the admin review and confirm the AI-generated tasks before they are saved? → A: Save
   generated tasks immediately after successful processing, without an admin confirmation step.
+- Q: When the admin uploads a valid transcript while transcript text is already present, should
+	the uploaded text replace or append to the existing text? → A: Append the uploaded text to the
+	existing transcript text.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -120,7 +123,10 @@ required fields.
 3. **Given** the admin enters a meeting transcript naming team members and work,
 	 **When** the admin selects create tasks, **Then** the application produces structured JSON task
 	 data using the same names as the transcript and immediately saves the resulting assignments.
-4. **Given** the transcript names a person not previously used in the application,
+4. **Given** the admin has a transcript in `.txt` or `.docx` format,
+	 **When** the admin uploads the file, **Then** the application extracts its text and appends it
+	 to any existing transcript text before making the combined text available for task creation.
+5. **Given** the transcript names a person not previously used in the application,
 	 **When** tasks are created for that person, **Then** that exact name becomes a valid login name
 	 without a separate registration step.
 
@@ -138,6 +144,9 @@ required fields.
 - A task description MAY be empty for a self-created task, but the title MUST be present.
 - A transcript that produces invalid, incomplete, or unassigned task data MUST not create partial
 	tasks and MUST show an actionable error.
+- Transcript uploads MUST accept `.txt` and `.docx` files and MUST reject other file formats with
+	a clear validation message.
+- An empty or unreadable transcript upload MUST not create tasks and MUST show an actionable error.
 - A task action that fails MUST leave the existing task, status, assignee, and order unchanged.
 - No task may have a deadline or time-based field in this feature.
 
@@ -173,14 +182,21 @@ required fields.
 - **FR-018**: The application MUST preserve task titles, descriptions, assignees, statuses,
   blocked states, and newest-first order between visits.
 - **FR-019**: The admin MUST be able to paste a meeting transcript and select create tasks.
-- **FR-020**: Transcript processing MUST produce task data as JSON containing the task title,
+- **FR-020**: The admin MUST be able to upload a meeting transcript in `.txt` or `.docx` format.
+- **FR-021**: The application MUST extract text from a valid transcript upload and make it
+	available for task creation, appending it to any existing transcript text.
+- **FR-022**: The application MUST reject transcript uploads in unsupported formats, including
+	files that are not `.txt` or `.docx`, with clear feedback.
+- **FR-023**: Transcript processing MUST produce task data as JSON containing the task title,
 	description, assignee name, status, and blocked state for each created task.
-- **FR-021**: Successfully processed transcript-generated tasks MUST be saved immediately without
+- **FR-024**: Successfully processed transcript-generated tasks MUST be saved immediately without
   requiring an admin confirmation step.
-- **FR-022**: Transcript-derived assignee names MUST match the names in the transcript exactly.
-- **FR-023**: A new assignee name from a created task MUST become a valid login name automatically,
+- **FR-025**: Transcript-derived assignee names MUST match the names in the transcript exactly.
+- **FR-026**: A new assignee name from a created task MUST become a valid login name automatically,
 	without registration.
-- **FR-024**: The first release MUST exclude passwords, registration, deadlines, time tracking,
+- **FR-027**: An empty or unreadable transcript upload MUST not create tasks and MUST provide an
+	actionable error.
+- **FR-028**: The first release MUST exclude passwords, registration, deadlines, time tracking,
 	task editing, search, reminders, notifications, and features not specified here.
 
 ### Key Entities *(include if feature involves data)*
@@ -189,7 +205,8 @@ required fields.
 	name `admin` identifies the administrator.
 - **Task**: A work item with a title, optional description, assignee name, status, blocked state,
 	and creation order. It has no deadline or time requirement.
-- **Meeting Transcript**: Text entered by the admin as the source for creating assigned tasks.
+- **Meeting Transcript**: Text pasted by the admin or extracted from an uploaded `.txt` or `.docx`
+	file as the source for creating assigned tasks.
 - **Generated Task Data**: Structured task information produced from a transcript before tasks are
 	created.
 
@@ -206,7 +223,8 @@ required fields.
 - **SC-004**: At least 95% of valid self-created tasks appear in the creator's todo column within
 	10 seconds.
 - **SC-005**: At least 90% of valid transcripts produce task data with the mentioned assignee
-	names preserved exactly, or provide a clear error without creating partial tasks.
+	names preserved exactly, whether pasted or uploaded as `.txt` or `.docx`, or provide a clear
+	error without creating partial tasks.
 - **SC-006**: In usability checks, at least 90% of participants can log in, open a task, and
 	change its status without assistance.
 
@@ -220,5 +238,7 @@ required fields.
 - “Last come first” means newest tasks appear first, and status changes do not reset creation order.
 - The admin's transcript task creation uses an AI capability but does not define a specific vendor
 	or model in this specification.
+- Transcript uploads support plain-text `.txt` files and `.docx` word-processing files; other
+	formats are outside the first release.
 - Successfully generated transcript tasks are saved immediately without admin confirmation.
 - Task data is available when users return to the application.
